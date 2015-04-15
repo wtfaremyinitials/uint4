@@ -28,9 +28,9 @@ var writeUInt4LE = function(buffer, value, cursor) {
         throw(new Error('value is out of bounds'));
 
     var byteLoc = Math.floor(cursor);
-    if(cursor % 1) // Second half byte
-        buffer.writeUInt8((value << 4 | readUInt4LE(buffer, cursor)),  byteLoc);
-    else // First half byte
+    if(cursor % 1)
+        buffer.writeUInt8((value << 4 | readUInt4LE(buffer, Math.floor(cursor))),  byteLoc);
+    else
         buffer.writeUInt8((readUInt4LE(buffer, byteLoc) << 4 | value), byteLoc);
 };
 
