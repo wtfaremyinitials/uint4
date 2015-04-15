@@ -1,6 +1,6 @@
 {
   "name": "uint4",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Read and write half-bytes to buffers",
   "main": "index.js",
   "scripts": {
