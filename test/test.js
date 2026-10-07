@@ -45,12 +45,23 @@ describe('uint4', function() {
             assert.equal(0xff, buf[3]);
         });
 
+        it('should keep the other half of the byte', function() {
+            var buf = new Buffer([0x00, 0xff]);
+
+            uint4.writeUInt4BE(buf, 0x05, 0.5);
+            uint4.writeUInt4BE(buf, 0x03, 0.0);
+            uint4.writeUInt4BE(buf, 0x00, 1.0);
+
+            assert.equal(0x35, buf[0]);
+            assert.equal(0x0f, buf[1]);
+        });
+
         it('should throw when given values >= 16', function() {
             var buf = new Buffer(4);
 
             assert.throws(function() {
-                writeUInt4(buf, 20, 0);
-            });
+                uint4.writeUInt4BE(buf, 20, 0);
+            }, /out of bounds/);
         });
 
      });
@@ -96,12 +107,23 @@ describe('uint4', function() {
              assert.equal(0xff, buf[3]);
          });
 
+         it('should keep the other half of the byte', function() {
+             var buf = new Buffer([0x00, 0xff]);
+
+             uint4.writeUInt4LE(buf, 0x05, 0.5);
+             uint4.writeUInt4LE(buf, 0x03, 0.0);
+             uint4.writeUInt4LE(buf, 0x00, 1.0);
+
+             assert.equal(0x53, buf[0]);
+             assert.equal(0xf0, buf[1]);
+         });
+
          it('should throw when given values >= 16', function() {
              var buf = new Buffer(4);
 
              assert.throws(function() {
-                 writeUInt4LE(buf, 20, 0);
-             });
+                 uint4.writeUInt4LE(buf, 20, 0);
+             }, /out of bounds/);
          });
 
       });

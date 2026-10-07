@@ -13,7 +13,7 @@ var writeUInt4BE = function(buffer, value, cursor) {
     if(cursor % 1) // Second half byte
         buffer.writeUInt8((readUInt4BE(buffer, byteLoc) << 4 | value), byteLoc);
     else // First half byte
-        buffer.writeUInt8((value << 4 | readUInt4BE(buffer, cursor)),  byteLoc);
+        buffer.writeUInt8((value << 4 | readUInt4BE(buffer, byteLoc + 0.5)),  byteLoc);
 };
 
 var readUInt4LE = function(buffer, cursor) {
@@ -31,7 +31,7 @@ var writeUInt4LE = function(buffer, value, cursor) {
     if(cursor % 1)
         buffer.writeUInt8((value << 4 | readUInt4LE(buffer, Math.floor(cursor))),  byteLoc);
     else
-        buffer.writeUInt8((readUInt4LE(buffer, byteLoc) << 4 | value), byteLoc);
+        buffer.writeUInt8((readUInt4LE(buffer, byteLoc + 0.5) << 4 | value), byteLoc);
 };
 
 module.exports.read       = readUInt4BE;
